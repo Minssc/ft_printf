@@ -6,7 +6,7 @@
 #    By: minsunki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 13:03:52 by minsunki          #+#    #+#              #
-#    Updated: 2021/03/08 00:35:50 by minsunki         ###   ########.fr        #
+#    Updated: 2021/03/24 14:30:30 by minsunki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS		= ft_atoi.c \
 			  ft_putendl_fd.c \
 			  ft_putnbr_fd.c \
 			  ft_putstr_fd.c \
+			  ft_putstrn_fd.c \
 			  ft_split.c \
 			  ft_strchr.c \
 			  ft_strdup.c \
@@ -44,7 +45,7 @@ SRCS		= ft_atoi.c \
 			  ft_strtrim.c \
 			  ft_substr.c \
 			  ft_tolower.c \
-			  ft_toupper.c
+			  ft_toupper.c 
 
 SRCS_B		= ft_lstnew.c \
 			  ft_lstadd_front.c \
@@ -82,7 +83,4 @@ fclean:		clean
 
 re:			fclean all
 
-so:			
-			${GCC} -o libft.so *.o -shared
-
-.PHONY:		all clean fclean .c.o re bonus so
+.PHONY:		all clean fclean .c.o re bonus

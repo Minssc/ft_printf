@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putstrn_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/03/24 13:47:40 by minsunki         ###   ########.fr       */
+/*   Created: 2021/03/24 14:25:59 by minsunki          #+#    #+#             */
+/*   Updated: 2021/03/24 14:30:00 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int		args_parser(const char *fmt)
+void	ft_putstrn_fd(char *s, int fd, size_t len)
 {
-	
-}
+	size_t	slen;
 
-int				ft_printf(const char *format, ...)
-{
-	va_list		vargs;
-	
-	va_start(vargs, format);
-	while (*format)
-	{
-		if (*format == '%')
-			
-		format++;
-	}
-	va_end(vargs);
+	if (!s || fd < 0)
+		return ;
+	slen = ft_strlen(s);
+	len = (slen < len ? slen : len);
+	write(fd, s, len);
 }
