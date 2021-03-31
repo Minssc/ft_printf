@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:45 by minsunki          #+#    #+#             */
-/*   Updated: 2021/03/24 13:59:26 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:47:59 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <unistd.h>
 #include <stdarg.h>
+#include "libft/libft.h"
 
 int			ft_printf(const char *format, ...);
 
