@@ -14,6 +14,7 @@ NAME		=	libftprintf.a
 LIBFT		=	libft
 LIBFT_NAME	=	libft.a
 SRCS		=	ft_printf.c \
+				ft_printf_util.c \
 				ft_print_char.c \
 				ft_print_dec.c \
 				ft_print_ptr.c \
