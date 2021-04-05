@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:45 by minsunki          #+#    #+#             */
-/*   Updated: 2021/03/31 15:30:43 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/05 00:23:04 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,33 @@
 #include <stdarg.h>
 #include "libft/libft.h"
 
+typedef enum
+{
+	e_aform =	0,
+	e_zfill =	1,
+	e_lalign =	1<<1,
+	e_space =	1<<2,
+	e_sign =	1<<3,
+	e_prec =	1<<4,
+	e_dec =		1<<5
+}				t_flag;
+
 typedef struct	s_cvd
 {
-	int			flags;
+	t_flag		flag;
 	int			width;
-	int			type;
+	int			pwidth;
+	char		type;
 	void		*data;
 }				t_cvd;
 
 int				ft_printf(const char *format, ...);
+int				ft_print_char(int c, t_cvd *cvd);
+int				ft_print_str(const char *str, t_cvd *cvd);
+int				ft_print_ptr(unsigned long long ptr, t_cvd *cvd);
+int				ft_print_dec(int num, t_cvd *cvd);
+int				ft_print_udec(unsigned int, t_cvd *cvd);
+
+int				ft_nputs(const char *str, size_t len);
 
 #endif
