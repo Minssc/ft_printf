@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/05 00:03:05 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:47:19 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			ft_print_dec(int num, t_cvd *cvd)
 	if (pw < cvd->width)
 	{
 		ret += cvd->width - pw;
-		while (cvd->width-- -pw -(num < 0))
+		while (cvd->width-- -pw - (num < 0))
 			if (cvd->flag & e_lalign || cvd->flag & e_prec)
 				ft_putchar_fd(' ', 1);
 			else

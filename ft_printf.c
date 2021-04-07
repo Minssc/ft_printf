@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/05 15:42:01 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:45:13 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,14 @@ static void		read_flag_width(char **fstr, t_cvd *cvd, va_list *va)
 		else if (**fstr == '0')
 			cvd->flag |= e_zfill; 
 		else if (**fstr == '*')
+		{
 			cvd->width = va_arg(*va, int);
+			if (cvd->width < 0)
+			{
+				cvd->width = -cvd->width;
+				cvd->flag |= e_lalign;
+			}
+		}
 		(*fstr)++;
 	}
 }
