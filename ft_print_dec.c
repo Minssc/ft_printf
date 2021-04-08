@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/09 00:36:42 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/09 00:45:40 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_width(long long num)
 	else
 		return (10);
 }
-
+/*
 static int print_pad(int num, t_cvd *cvd)
 {
 	int		ret;
@@ -59,7 +59,7 @@ static int print_pad(int num, t_cvd *cvd)
 	}
 	return (ret);
 }
-
+*/
 static int putnbr(long long num)
 {
 	int 	ret;
@@ -70,7 +70,7 @@ static int putnbr(long long num)
 	ft_putchar_fd('0' + num % 10, 1);
 	return (ret + 1);
 }
-
+/*
 static int	print_nbr(long long num, t_cvd *cvd)
 {
 	int		ret;
@@ -93,7 +93,7 @@ static int	print_nbr(long long num, t_cvd *cvd)
 	ret += putnbr(num < 0 ? -num : num);
 	return (ret);
 }
-
+*/
 static int ppad(char c, int len)
 {
 	int		ret;
