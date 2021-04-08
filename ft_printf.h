@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:45 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/05 00:23:04 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/09 00:36:03 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ int				ft_printf(const char *format, ...);
 int				ft_print_char(int c, t_cvd *cvd);
 int				ft_print_str(const char *str, t_cvd *cvd);
 int				ft_print_ptr(unsigned long long ptr, t_cvd *cvd);
-int				ft_print_dec(int num, t_cvd *cvd);
+int				ft_print_dec(long long num, t_cvd *cvd);
 int				ft_print_udec(unsigned int, t_cvd *cvd);
 
 int				ft_nputs(const char *str, size_t len);
+int				ft_putc(const char c);
+int				ft_max(const int a, const int b);
 
 #endif

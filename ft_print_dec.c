@@ -6,12 +6,14 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/08 20:31:49 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/09 00:36:42 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
+
+static int	g_nw;
 
 static int	get_width(long long num)
 {
@@ -38,47 +40,92 @@ static int	get_width(long long num)
 		return (10);
 }
 
-static void	print_nbr(long long num, int prec)
+static int print_pad(int num, t_cvd *cvd)
 {
+	int		ret;
+	int		pw;
+
+	ret = 0;
+	if ((cvd->flag & e_zfill) && !(cvd->flag & e_prec) && (num < 0))
+		return (0);
+	pw = cvd->width - (cvd->pwidth < g_nw ? g_nw : cvd->pwidth) - (num < 0);
+	while (pw-- > 0)
+	{
+		if (cvd->flag & e_prec || (num < 0))
+			ft_putchar_fd(' ', 1);
+		else
+			ft_putchar_fd((cvd->flag & e_zfill ? '0' : ' '), 1);
+		ret++;
+	}
+	return (ret);
+}
+
+static int putnbr(long long num)
+{
+	int 	ret;
+
+	ret = 0;
+	if (num >= 10)
+		ret += putnbr(num / 10);
+	ft_putchar_fd('0' + num % 10, 1);
+	return (ret + 1);
+}
+
+static int	print_nbr(long long num, t_cvd *cvd)
+{
+	int		ret;
+	int		pw;
+
+	ret = 0;
 	if (num < 0)
 	{
 		ft_putchar_fd('-', 1);
-		while (prec--)
-			ft_putchar_fd('0', 1);
-		print_nbr(-num, 0);
+		ret++;
 	}
-	else 
+
+	if ((cvd->flag & e_prec) || (num < 0))
 	{
-		while (prec--)
+		pw = ft_max(cvd->pwidth - g_nw, cvd->width - g_nw - (num < 0));
+		ret += (pw > 0 ? pw : 0);
+		while (pw-- > 0)
 			ft_putchar_fd('0', 1);
-		if (num >= 10)
-			print_nbr(num / 10, 0);
-		ft_putchar_fd('0' + num % 10, 1);
 	}
+	ret += putnbr(num < 0 ? -num : num);
+	return (ret);
 }
 
-int			ft_print_dec(int num, t_cvd *cvd)
+static int ppad(char c, int len)
 {
 	int		ret;
-	int		nw;
-	int		pw;
 
-	nw = get_width(num);
-	pw = (nw < cvd->pwidth ? cvd->pwidth : nw);
-	ret = pw - nw;
+	ret = 0;
+	while (len-- > 0)
+		ret += ft_putc(c);
+	return (ret);
+}
+
+int			ft_print_dec(long long num, t_cvd *cvd)
+{
+	int		wid;
+
+	g_nw = get_width(num);
+	wid = ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), g_nw + (num < 0));
 	if (cvd->flag & e_lalign)
-		print_nbr(num, pw - nw);
-	if (pw < cvd->width)
 	{
-		ret += cvd->width - pw;
-		while (cvd->width-- -pw - (num < 0))
-			if (cvd->flag & e_lalign || (cvd->flag & e_prec && cvd->pwidth >= 0))
-				ft_putchar_fd(' ', 1);
-			else
-				ft_putchar_fd((cvd->flag & e_zfill && num >= 0 ? '0' : ' '), 1);
+		if (num < 0)
+			wid -= ft_putc('-');
+		if (cvd->flag & e_prec)
+			wid -= ppad('0', cvd->pwidth - g_nw);
+		wid -= putnbr(num < 0 ? -num : num);
+		wid -= ppad(' ', wid);
 	}
-	if (!(cvd->flag & e_lalign))
-		print_nbr(num, pw - nw);
-
-	return (ret + nw + (num < 0));
+	else
+	{
+		wid -= ppad(((cvd->flag & e_zfill) && !(cvd->flag & e_prec) ? '0' : ' '), wid - ft_max(cvd->pwidth, g_nw) - (num < 0));
+		if (num < 0)
+			wid -= ft_putc('-');
+		wid -= ppad('0', cvd->pwidth - g_nw);
+		wid -= putnbr(num < 0 ? -num : num);
+	}
+	return (ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), g_nw + (num < 0)));
 }

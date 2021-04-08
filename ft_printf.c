@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/08 20:23:02 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/08 21:42:34 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ static void		read_width_prec(char **fstr, t_cvd *cvd, va_list *va)
 	if (*(*fstr + 1) == '*')
 	{
 		cvd->pwidth = va_arg(*va, int);
-		if (cvd->pwidth < 0)
+		if (cvd->pwidth <= 0)
+		{
 			cvd->pwidth = 0;
+			cvd->flag &= ~e_prec;
+		}
 		(*fstr) += 2;
 		return ;
 	}
