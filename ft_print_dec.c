@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/09 01:14:07 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/09 01:17:14 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 				wid -= ppad(' ', wid);
 			return (cvd->width);
 		}
-		if (cvd->flag & e_zfill)
+		if (cvd->flag & e_zfill || cvd->pwidth)
 			wid -= ppad('0', wid - g_nw);
 		wid -= putnbr(num < 0 ? -num : num);
 	}
