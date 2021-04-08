@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/09 01:17:14 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/09 01:19:42 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,7 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 	}
 	else
 	{
-		if (cvd->pwidth)
-			wid -= ppad(((cvd->flag & e_zfill) && !(cvd->flag & e_prec) && (num > 0) ? '0' : ' '), wid - ft_max(cvd->pwidth, g_nw) - (num < 0));
+		wid -= ppad(((cvd->flag & e_zfill) && !(cvd->flag & e_prec) && (num > 0) ? '0' : ' '), wid - ft_max(cvd->pwidth, g_nw) - (num < 0));
 		if (num < 0)
 			wid -= ft_putc('-');
 		if (num == 0 && !cvd->pwidth)
