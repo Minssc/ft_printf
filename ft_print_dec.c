@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/07 16:38:41 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/08 20:31:49 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ int			ft_print_dec(int num, t_cvd *cvd)
 	if (!(cvd->flag & e_lalign))
 		print_nbr(num, pw - nw);
 
-	return (ret + nw);
+	return (ret + nw + (num < 0));
 }
