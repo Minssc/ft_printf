@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/09 15:34:53 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/09 17:25:00 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 
 	g_nw = get_width(num);
 	pw = ft_max(cvd->pwidth, g_nw) + (num < 0);
-	if (!(cvd->flag & e_prec) || !cvd->pwidth)
+	if (cvd->flag & e_zfill & (!(cvd->flag & e_prec) || !cvd->pwidth))
 		pw = ft_max(cvd->width, g_nw + (num < 0));
 	wid = ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), g_nw + (num < 0));
 	if (cvd->flag & e_lalign)
@@ -120,8 +120,7 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 			wid -= ft_putc('-');
 		if (cvd->flag & e_prec)
 			wid -= ppad('0', cvd->pwidth - g_nw);
-		
-		if (!num && !cvd->pwidth)
+		if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
 		{
 			if (cvd->width)
 				wid -= ppad(' ', wid);
@@ -136,7 +135,7 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 		if (num < 0)
 			wid -= ft_putc('-');
 		wid -= ppad('0', wid - g_nw);
-		if (!num && !cvd->pwidth)
+		if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
 		{
 			if (cvd->width)
 				wid -= ppad(' ', wid);
