@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 17:11:27 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:12:30 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 	if (!(cvd->flag & e_lalign) && (cvd->flag & e_zfill))
 		pw = wid;
 	if ((cvd->flag & e_prec) && cvd->pwidth >= 0)
-		pw = ft_max(cvd->pwidth + (num < 0), pw);
+		pw = ft_max(cvd->pwidth, nw) + (num < 0);
 	if (!(cvd->flag & e_lalign))
 		wid -= ppad(' ', wid - pw);
 	if (num < 0)
