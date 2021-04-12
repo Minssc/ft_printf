@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 17:07:04 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:11:27 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 	int			owid;
 	int			pw;
 
-	wid = ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), g_nw + (num < 0));
+	wid = ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), nw + (num < 0));
 	owid = wid;
-	pw = g_nw + (num < 0);
+	pw = nw + (num < 0);
 	if (!(cvd->flag & e_lalign) && (cvd->flag & e_zfill))
 		pw = wid;
 	if ((cvd->flag & e_prec) && cvd->pwidth >= 0)
-		pw = ft_max(cvd->pwidth, g_nw) + (num < 0);
+		pw = ft_max(cvd->pwidth + (num < 0), pw);
 	if (!(cvd->flag & e_lalign))
 		wid -= ppad(' ', wid - pw);
 	if (num < 0)
 		wid -= ft_putc('-');
-	wid -= ppad('0', pw - g_nw - (num < 0));
+	wid -= ppad('0', pw - nw - (num < 0));
 	if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
 	{
 		wid -= (cvd->width ? ppad(' ', wid) : 0);
