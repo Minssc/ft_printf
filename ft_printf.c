@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/09 00:55:26 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:27:12 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,6 @@ static void		read_width_prec(char **fstr, t_cvd *cvd, va_list *va)
 	if (*(*fstr + 1) == '*')
 	{
 		cvd->pwidth = va_arg(*va, int);
-		/*
-		if (cvd->pwidth <= 0)
-		{
-			cvd->pwidth = 0;
-			cvd->flag &= ~e_prec;
-		}
-		*/
 		(*fstr) += 2;
 		return ;
 	}
@@ -80,6 +73,8 @@ static int		do_print(t_cvd *cvd, va_list *va)
 		return (ft_print_dec(va_arg(*va, int), cvd));
 	else if (cvd->type == 'u' || cvd->type == 'x' || cvd->type == 'X')
 		return (ft_print_udec(va_arg(*va, int), cvd));
+	else if (cvd->type == '%')
+		return (ft_print_char('%', cvd));
 	return (0);
 }
 
@@ -95,27 +90,17 @@ int				ft_printf(const char *format, ...)
 	while ((cvp = ft_strchr(format, '%')))
 	{
 		ret += ft_nputs(format, cvp - format);
-//		ft_putstrn_fd((char *)format, 1, cvp - format);
-//		ret += (int)(cvp - format);
-		//printf("$\n");
 		format = cvp++;
-		//printf("ostr: %s\n", format);
 		read_flag_width(&cvp, &cvd, &vargs);
 		read_width_prec(&cvp, &cvd, &vargs);
 		cvd.type = *cvp++;
-		
-		//printf("width: %d\n", cvd.width);
-		//printf("precision: %d\n", cvd.precision);
-		//printf("string left: %s\n", cvp);
 		if (!valid_conv(cvd.type))
 			ret += ft_nputs(format, cvp - format);
-//			ft_putstrn_fd((char *)format, 0, cvp - format);
 		else
 			ret += do_print(&cvd, &vargs);
 		format = cvp;
 	}
 	ret += ft_nputs(format, cvp - format);
-//	ft_putstr_fd((char *)format, 1);
 	va_end(vargs);
 	return (ret);
 }

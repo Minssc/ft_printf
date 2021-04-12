@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/09 17:49:03 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:47:22 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,22 @@ static int	print_nbr(long long num, t_cvd *cvd)
 	ret += putnbr(num < 0 ? -num : num);
 	return (ret);
 }
+	if (cvd->flag & e_lalign)
+	{
+		if (num < 0)
+			wid -= ft_putc('-');
+		//if (cvd->flag & e_prec)
+		//	wid -= ppad('0', cvd->pwidth - g_nw);
+		wid -= ppad('0', wid - g_nw);
+		if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
+		{
+			if (cvd->width)
+				wid -= ppad(' ', wid);
+			return (cvd->width);
+		}
+		wid -= putnbr(num < 0 ? -num : num);
+		wid -= ppad(' ', wid);
+	}
 */
 static int ppad(char c, int len)
 {
@@ -107,42 +123,29 @@ static int ppad(char c, int len)
 int			ft_print_dec(long long num, t_cvd *cvd)
 {
 	int		wid;
+	int		owid;
 	int		pw;
 
 	g_nw = get_width(num);
-	pw = ft_max(cvd->pwidth, g_nw) + (num < 0);
-	if ((cvd->flag & e_zfill) || ((cvd->flag & e_zfill) && !(cvd->flag & e_prec)))
-		pw = ft_max(cvd->width, pw);
 	wid = ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), g_nw + (num < 0));
-	if (cvd->flag & e_lalign)
-	{
-		if (num < 0)
-			wid -= ft_putc('-');
-		if (cvd->flag & e_prec)
-			wid -= ppad('0', cvd->pwidth - g_nw);
-		if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
-		{
-			if (cvd->width)
-				wid -= ppad(' ', wid);
-			return (cvd->width);
-		}
-		wid -= putnbr(num < 0 ? -num : num);
-		wid -= ppad(' ', wid);
-	}
-	else
-	{
+	owid = wid;
+	pw = g_nw + (num < 0);
+	if (!(cvd->flag & e_lalign) && (cvd->flag & e_zfill))
+		pw = wid;
+	if ((cvd->flag & e_prec) && cvd->pwidth >= 0)
+		pw = ft_max(cvd->pwidth, g_nw) + (num < 0);
+	if (!(cvd->flag & e_lalign))
 		wid -= ppad(' ', wid - pw);
-		if (num < 0)
-			wid -= ft_putc('-');
-		wid -= ppad('0', wid - g_nw);
-		if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
-		{
-			if (cvd->width)
-				wid -= ppad(' ', wid);
-			return (cvd->width);
-		}
-		wid -= putnbr(num < 0 ? -num : num);
-		wid -= ppad(' ', wid);
+	if (num < 0)
+		wid -= ft_putc('-');
+	wid -= ppad('0', pw - g_nw - (num < 0));
+	if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
+	{
+		if (cvd->width)
+			wid -= ppad(' ', wid);
+		return (cvd->width);
 	}
-	return (ft_max(ft_max(cvd->pwidth + (num < 0), cvd->width), g_nw + (num < 0)));
+	wid -= putnbr(num < 0 ? -num : num);
+	wid -= ppad(' ', wid);
+	return (owid);
 }
