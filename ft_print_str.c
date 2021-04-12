@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 17:37:54 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 21:48:35 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 21:49:19 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int			ft_print_str(const char *str, t_cvd *cvd)
 		wid -= ft_pad(' ', wid - slen);
 	wid -= ft_nputs(str, slen);
 	wid -= ft_pad(' ', wid);
-	return (ft_max(cvd->width, slen);
+	return (ft_max(cvd->width, slen));
 }
