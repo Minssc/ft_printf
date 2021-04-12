@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:45 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 17:45:54 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 20:53:07 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int				ft_print_udec(unsigned int, t_cvd *cvd);
 int				ft_nputs(const char *str, size_t len);
 int				ft_putc(const char c);
 int				ft_max(const int a, const int b);
+int				ft_min(const int a, const int b);
+int				ft_pad(char c, int len);
 
 #endif

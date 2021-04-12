@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 17:37:54 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/05 16:10:26 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 21:01:53 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 int			ft_print_str(const char *str, t_cvd *cvd)
 {
-	int		ret;
 	int		slen;
+	int		wid;
+	int		owid;
 
+	if (!str)
+		str = (cvd->pwidth >= 6 ? "(null)" : "");
 	slen = ft_strlen(str);
-	slen = (cvd->pwidth < slen ? cvd->pwidth : slen);
-	ret = 0;
-	if (cvd->flag & e_lalign)
-		ret += ft_nputs(str, (cvd->flag & e_prec ? cvd->pwidth : -1));
-	if (slen < cvd->width)
-	{
-		ret += cvd->width - slen;
-		while (cvd->width-- - slen)
-			ft_putchar_fd(' ', 1);
-	}
+	if ((cvd->flag & e_prec) && cvd->pwidth >= 0)
+		slen = ft_min(cvd->pwidth, slen);
+	wid = ft_max(cvd->width, slen);
+	owid = wid;
 	if (!(cvd->flag & e_lalign))
-		ret += ft_nputs(str, (cvd->flag & e_prec ? cvd->pwidth : -1));
-	return (ret);
+		wid -= ft_pad(' ', wid - slen);
+	wid -= ft_nputs(str, slen);
+	wid -= ft_pad(' ', wid);
+	return (owid);
 }

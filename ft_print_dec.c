@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 17:12:30 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 20:54:19 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,7 @@ static int	putnbr(long long num)
 	ret = 0;
 	if (num >= 10)
 		ret += putnbr(num / 10);
-	ft_putchar_fd('0' + num % 10, 1);
-	return (ret + 1);
-}
-
-static int	ppad(char c, int len)
-{
-	int		ret;
-
-	ret = 0;
-	while (len-- > 0)
-		ret += ft_putc(c);
-	return (ret);
+	return (1 + ret);
 }
 
 int			ft_print_dec(long long num, t_cvd *cvd)
@@ -73,16 +62,16 @@ int			ft_print_dec(long long num, t_cvd *cvd)
 	if ((cvd->flag & e_prec) && cvd->pwidth >= 0)
 		pw = ft_max(cvd->pwidth, nw) + (num < 0);
 	if (!(cvd->flag & e_lalign))
-		wid -= ppad(' ', wid - pw);
+		wid -= ft_pad(' ', wid - pw);
 	if (num < 0)
 		wid -= ft_putc('-');
-	wid -= ppad('0', pw - nw - (num < 0));
+	wid -= ft_pad('0', pw - nw - (num < 0));
 	if (!num && ((cvd->flag & e_prec) && !cvd->pwidth))
 	{
-		wid -= (cvd->width ? ppad(' ', wid) : 0);
+		wid -= (cvd->width ? ft_pad(' ', wid) : 0);
 		return (cvd->width);
 	}
 	wid -= putnbr(num < 0 ? -num : num);
-	wid -= ppad(' ', wid);
+	wid -= ft_pad(' ', wid);
 	return (owid);
 }
