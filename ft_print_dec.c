@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 18:02:34 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 20:54:19 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/12 21:46:27 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	putnbr(long long num)
 	ret = 0;
 	if (num >= 10)
 		ret += putnbr(num / 10);
+	ft_putc('0' + num % 10);
 	return (1 + ret);
 }
 
