@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:22:29 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/13 15:47:39 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:50:38 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	putunbr(unsigned int num, int hex)
 	int			ret;
 
 	ret = 0;
-	if (num >= base)
+	if (num >= (unsigned int)base)
 		ret += putunbr(num / base, hex);
 	if (hex == 2)
 		ft_putc("0123456789ABCDEF"[num % base]);
