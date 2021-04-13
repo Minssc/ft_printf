@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:15:10 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 20:53:05 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:30:02 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ int			ft_pad(char c, int len)
 	ret = len;
 	while (len-- > 0)
 		ft_putchar_fd(c, 1);
-	return (ret);
+	return (ret < 0 ? 0 : ret);
 }

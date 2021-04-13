@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 21:09:33 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/04 23:19:38 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:34:10 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,49 +25,42 @@ static int	get_width(unsigned long long ptr)
 	return (ret ? ret : 1);
 }
 
-static void ptos(unsigned long long ptr)
-{
-	if (ptr >= 16)
-		ptos(ptr / 16);
-	ft_putchar_fd("0123456789abcdef"[ptr%16], 1);
-}
-
-static int padding(char c, int len)
+static int	putptr(unsigned long long ptr)
 {
 	int		ret;
 
-	if (len <= 0)
-		return (0);
-	ret = len;
-	while (len--)
-		ft_putchar_fd(c, 1);
-	return (ret);
+	ret = 0;
+	if (ptr >= 16)
+		ret += putptr(ptr / 16);
+	ft_putc("0123456789abcdef"[ptr % 16]);
+	return (1 + ret);
 }
 
 int			ft_print_ptr(unsigned long long ptr, t_cvd *cvd)
 {
-	int		ret;
-	int		pwidth;
+	const int	nw = get_width(ptr);
+	int			wid;
+	int			owid;
+	int			pw;
 
-	pwidth = get_width(ptr) + 2;
-	ret = pwidth;
-	if (cvd->flag & e_lalign)
+	wid = ft_max(ft_max(cvd->pwidth + 2, cvd->width), nw + 2);
+	pw = 2 + nw;
+	if (!(cvd->flag & e_lalign) && (cvd->flag & e_zfill))
+		pw = wid;
+	if ((cvd->flag & e_prec) && (cvd->pwidth >= 0))
+		pw = ft_max(cvd->pwidth, nw) + 2;
+	if (!ptr && (cvd->flag & e_prec) && !cvd->pwidth)
 	{
-		ft_putstr_fd("0x", 1);
-		ptos(ptr);
-		ret += padding(' ', cvd->width - pwidth);
+		wid = ft_max(2, cvd->width);
+		pw = 2;
 	}
-	else if (cvd->flag & e_zfill)
-	{
-		ft_putstr_fd("0x", 1);
-		ret += padding('0', cvd->width - pwidth);
-		ptos(ptr);
-	}
-	else
-	{
-		ret += padding(' ', cvd->width - pwidth);
-		ft_putstr_fd("0x", 1);
-		ptos(ptr);
-	}
-	return (ret);
+	owid = wid;
+	if (!(cvd->flag & e_lalign))
+		wid -= ft_pad(' ', wid - pw);
+	wid -= ft_nputs("0x", 2);
+	wid -= ft_pad('0', pw - nw - 2);
+	if (pw != 2)
+		wid -= putptr(ptr);
+	wid -= ft_pad(' ', wid);
+	return (owid);
 }
