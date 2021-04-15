@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 static void		read_flag_width(char **fstr, t_cvd *cvd, va_list *va)
 {
@@ -22,7 +21,7 @@ static void		read_flag_width(char **fstr, t_cvd *cvd, va_list *va)
 		if (**fstr == '-')
 			cvd->flag |= e_lalign;
 		else if (**fstr == '0')
-			cvd->flag |= e_zfill; 
+			cvd->flag |= e_zfill;
 		else if (**fstr == '*')
 		{
 			cvd->width = va_arg(*va, int);
@@ -52,7 +51,7 @@ static void		read_width_prec(char **fstr, t_cvd *cvd, va_list *va)
 		return ;
 	}
 	while (ft_isdigit(*(++(*fstr))))
-		cvd->pwidth= cvd->pwidth* 10 + (**fstr - '0');
+		cvd->pwidth = cvd->pwidth * 10 + (**fstr - '0');
 }
 
 static int		valid_conv(char c)
@@ -79,12 +78,12 @@ static int		do_print(t_cvd *cvd, va_list *va)
 }
 
 int				ft_printf(const char *format, ...)
-{ 
+{
 	va_list		vargs;
 	char		*cvp;
 	t_cvd		cvd;
 	int			ret;
-	
+
 	ret = 0;
 	va_start(vargs, format);
 	while ((cvp = ft_strchr(format, '%')))

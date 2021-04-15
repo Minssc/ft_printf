@@ -13,20 +13,20 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <unistd.h>
-#include <stdarg.h>
-#include "libft/libft.h"
+# include <unistd.h>
+# include <stdarg.h>
+# include "libft/libft.h"
 
 typedef enum
 {
-	e_aform =	0,
-	e_zfill =	1,
-	e_lalign =	1<<1,
-	e_space =	1<<2,
-	e_sign =	1<<3,
-	e_prec =	1<<4,
-	e_dec =		1<<5
-}				t_flag;
+	e_aform = 0,
+	e_zfill = 1,
+	e_lalign = 1 << 1,
+	e_space = 1 << 2,
+	e_sign = 1 << 3,
+	e_prec = 1 << 4,
+	e_dec = 1 << 5
+}	t_flag;
 
 typedef struct	s_cvd
 {
@@ -42,7 +42,7 @@ int				ft_print_char(int c, t_cvd *cvd);
 int				ft_print_str(const char *str, t_cvd *cvd);
 int				ft_print_ptr(unsigned long long ptr, t_cvd *cvd);
 int				ft_print_dec(long long num, t_cvd *cvd);
-int				ft_print_udec(unsigned int, t_cvd *cvd);
+int				ft_print_udec(unsigned int num, t_cvd *cvd);
 
 int				ft_nputs(const char *str, size_t len);
 int				ft_putc(const char c);
