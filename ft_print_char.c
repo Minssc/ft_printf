@@ -15,14 +15,16 @@
 
 int			ft_print_char(int c, t_cvd *cvd)
 {
-	int		ret;
+	int		wid;
+	int		owid;
+	int		pw;
 
-	ret = cvd->width;
-	if (cvd->flag & e_lalign)
-		ft_putchar_fd(c, 1);
-	while (--cvd->width > 0)
-		ft_putchar_fd(' ', 1);
+	wid = (cvd->width ? cvd->width : 1);
+	owid = wid;
+	pw = 1;
 	if (!(cvd->flag & e_lalign))
-		ft_putchar_fd(c, 1);
-	return (ret ? ret : 1);
+		wid -= ft_pad((cvd->flag & e_zfill ? '0' : ' '), wid - 1);
+	wid -= ft_putc(c);
+	wid -= ft_pad(' ', wid);
+	return (owid);
 }
