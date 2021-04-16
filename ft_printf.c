@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/12 17:38:40 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:28:32 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int		do_print(t_cvd *cvd, va_list *va)
 	return (0);
 }
 
+#include <stdio.h>
 int				ft_printf(const char *format, ...)
 {
 	va_list		vargs;
@@ -86,7 +87,7 @@ int				ft_printf(const char *format, ...)
 
 	ret = 0;
 	va_start(vargs, format);
-	while ((cvp = ft_strchr(format, '%')))
+	while ((cvp = ft_strchr(format, '%')) && *(cvp + 1))
 	{
 		ret += ft_nputs(format, cvp - format);
 		format = cvp++;
@@ -99,7 +100,7 @@ int				ft_printf(const char *format, ...)
 			ret += do_print(&cvd, &vargs);
 		format = cvp;
 	}
-	ret += ft_nputs(format, cvp - format);
+	ret += ft_nputs(format, -1);
 	va_end(vargs);
 	return (ret);
 }
