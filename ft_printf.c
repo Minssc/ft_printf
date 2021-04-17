@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/17 12:54:00 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/17 13:17:28 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ int				ft_printf(const char *format, ...)
 			ret += do_print(&cvd, &vargs);
 		else if (cvd.type == 'n')
 			*(va_arg(vargs, int *)) = ret;
-		else
-			ret += do_print(&cvd, &vargs);
 		format = (*cvp ? cvp + 1 : cvp);
 	}
 	ret += ft_nputs(format, -1);
