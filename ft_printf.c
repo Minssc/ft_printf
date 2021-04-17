@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/17 12:37:48 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/17 12:54:00 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ static void		read_width_prec(char **fstr, t_cvd *cvd, va_list *va)
 
 static int		valid_conv(char c)
 {
-	return (c == 'c' || c == 's' || c == 'p' || c == 'd' ||
-		c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == '%');
+	return (
+		c == 'c' || c == 's' || c == 'p' || c == 'd' ||
+		c == 'i' || c == 'u' || c == 'x' || c == 'X' ||
+		c == '%'
+		);
 }
 
 static int		do_print(t_cvd *cvd, va_list *va)
@@ -93,8 +96,10 @@ int				ft_printf(const char *format, ...)
 		read_flag_width(&cvp, &cvd, &vargs);
 		read_width_prec(&cvp, &cvd, &vargs);
 		cvd.type = *cvp;
-		if (!valid_conv(cvd.type))
-			ret += ft_nputs(format, cvp - format + 1);
+		if (valid_conv(cvd.type))
+			ret += do_print(&cvd, &vargs);
+		else if (cvd.type == 'n')
+			*(va_arg(vargs, int *)) = ret;
 		else
 			ret += do_print(&cvd, &vargs);
 		format = (*cvp ? cvp + 1 : cvp);
