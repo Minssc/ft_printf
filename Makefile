@@ -6,7 +6,7 @@
 #    By: minsunki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/28 22:26:03 by minsunki          #+#    #+#              #
-#    Updated: 2021/04/05 16:09:35 by minsunki         ###   ########.fr        #
+#    Updated: 2021/04/18 15:49:15 by minsunki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,4 +48,6 @@ fclean		:	clean
 
 re			:	fclean all
 
-.PHONY		:	.c.o all clean fclean re
+bonus		:	all
+
+.PHONY		:	.c.o all clean fclean re bonus
