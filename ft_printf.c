@@ -6,7 +6,7 @@
 /*   By: minsunki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:14:36 by minsunki          #+#    #+#             */
-/*   Updated: 2021/04/17 13:17:28 by minsunki         ###   ########.fr       */
+/*   Updated: 2021/04/18 15:37:24 by minsunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ static int		valid_conv(char c)
 	return (
 		c == 'c' || c == 's' || c == 'p' || c == 'd' ||
 		c == 'i' || c == 'u' || c == 'x' || c == 'X' ||
-		c == '%'
-		);
+		c == '%');
 }
 
 static int		do_print(t_cvd *cvd, va_list *va)
